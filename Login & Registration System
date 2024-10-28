@@ -1,0 +1,69 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+void registerUser();
+bool loginUser();
+int main()
+{
+                              system("cls");
+ int choice;
+ cout<<"1.Register\n";
+ cout<<"2.Login\n";
+ cout<<"Enter your choice:";
+ cin>>choice;
+ if(choice==1)
+ {
+ registerUser();
+ }
+ else if(choice==2)
+ {
+  if(loginUser())
+  {
+  cout<<"Login successfull!"<<endl;
+  }
+  else
+  {
+   cout<<"Invalid username or password!"<<endl;
+  }
+ }
+ else
+ {
+  cout<<"Invalid choice!"<<endl;
+ }
+ return 0;
+}
+void registerUser()
+{
+ string username, password;
+ cout<<"Register"<<endl;
+ cout<<"Enter a user name:";
+ cin>>username;
+cout<<"Enter a password:";
+cin>>password;
+ofstream file;
+file.open("users.txt",ios::app);
+file<<username<<""<<password<<endl;
+file.close();
+cout<<"Registration successful!"<<endl;
+}
+bool loginUser()
+{
+ string username,password,un,pw;
+ cout<<"Login"<<endl;
+ cout<<"Enter username:";
+ cin>>username;
+ cout<<"Enter password:";
+ cin>>password;
+ ifstream file("users.txt");
+ while(file>>un>>pw)
+ {
+ if(un==username && pw==password)
+ {
+ file.close();
+  return true;
+ }
+ }
+ file.close();
+ return false;
+}
